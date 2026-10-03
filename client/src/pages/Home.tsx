@@ -53,6 +53,8 @@ export default function Home() {
     hidden: {},
     visible: { transition: { staggerChildren: shouldReduceMotion ? 0 : 0.12 } }
   };
+  const cardHover = shouldReduceMotion ? undefined : { y: -5, scale: 1.015 };
+  const cardHoverTransition = { type: "spring" as const, stiffness: 320, damping: 24 };
 
   const PORTRAIT_URL = "/idrees-khan-portrait.jpeg";
   const CV_URL = "/manus-storage/Idrees_Khan_CV_ce58927d.pdf";
@@ -282,7 +284,7 @@ export default function Home() {
             viewport={{ once: true, amount: 0.2 }}
             className="grid grid-cols-1 md:grid-cols-3 gap-8"
           >
-            <motion.div variants={revealVariants} className="bg-slate-900/60 backdrop-blur-xl p-8 rounded-3xl border border-white/10 space-y-4 hover:border-amber-500/40 transition-colors">
+            <motion.div variants={revealVariants} whileHover={cardHover} transition={cardHoverTransition} className="bg-slate-900/60 backdrop-blur-xl p-8 rounded-3xl border border-white/10 space-y-4 hover:border-amber-500/40 transition-colors">
               <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold">
                 <Code className="w-7 h-7" />
               </div>
@@ -292,7 +294,7 @@ export default function Home() {
               </p>
             </motion.div>
 
-            <motion.div variants={revealVariants} className="bg-slate-900/60 backdrop-blur-xl p-8 rounded-3xl border border-white/10 space-y-4 hover:border-amber-500/40 transition-colors">
+            <motion.div variants={revealVariants} whileHover={cardHover} transition={cardHoverTransition} className="bg-slate-900/60 backdrop-blur-xl p-8 rounded-3xl border border-white/10 space-y-4 hover:border-amber-500/40 transition-colors">
               <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold">
                 <Search className="w-7 h-7" />
               </div>
@@ -302,7 +304,7 @@ export default function Home() {
               </p>
             </motion.div>
 
-            <motion.div variants={revealVariants} className="bg-slate-900/60 backdrop-blur-xl p-8 rounded-3xl border border-white/10 space-y-4 hover:border-amber-500/40 transition-colors">
+            <motion.div variants={revealVariants} whileHover={cardHover} transition={cardHoverTransition} className="bg-slate-900/60 backdrop-blur-xl p-8 rounded-3xl border border-white/10 space-y-4 hover:border-amber-500/40 transition-colors">
               <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold">
                 <Briefcase className="w-7 h-7" />
               </div>
@@ -362,7 +364,8 @@ export default function Home() {
               <motion.div 
                 key={skill.title}
                 variants={revealVariants}
-                whileHover={shouldReduceMotion ? undefined : { y: -5 }}
+                whileHover={cardHover}
+                transition={cardHoverTransition}
                 className="bg-slate-900/80 backdrop-blur-xl p-8 rounded-3xl border border-white/10 hover:border-amber-500/40 transition-all duration-300 space-y-5"
               >
                 <div className="p-3.5 rounded-2xl bg-slate-950 border border-white/10 w-fit">
@@ -392,7 +395,7 @@ export default function Home() {
                 { title: "Customer Email Support", icon: <Mail className="w-5 h-5 text-emerald-400" /> },
                 { title: "Graphic Design & Office", icon: <Layers className="w-5 h-5 text-rose-400" /> }
               ].map((skill) => (
-                <motion.div key={skill.title} variants={revealVariants} className="flex items-center gap-3 p-4 rounded-2xl bg-slate-900/50 border border-white/10">
+                <motion.div key={skill.title} variants={revealVariants} whileHover={cardHover} transition={cardHoverTransition} className="flex items-center gap-3 p-4 rounded-2xl bg-slate-900/50 border border-white/10">
                   {skill.icon}
                   <span className="text-sm text-slate-300">{skill.title}</span>
                 </motion.div>
@@ -428,7 +431,7 @@ export default function Home() {
           >
             
             {/* Project 1: POS (Django) */}
-            <motion.div variants={revealVariants} className="bg-slate-900/80 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden flex flex-col justify-between hover:border-amber-500/40 transition-all duration-300 shadow-xl">
+            <motion.div variants={revealVariants} whileHover={cardHover} transition={cardHoverTransition} className="bg-slate-900/80 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden flex flex-col justify-between hover:border-amber-500/40 transition-all duration-300 shadow-xl">
               <div className="p-8 sm:p-10 space-y-6">
                 <div className="flex items-center justify-between">
                   <div className="p-4 rounded-2xl bg-amber-500/10 text-amber-400">
@@ -462,7 +465,7 @@ export default function Home() {
             </motion.div>
 
             {/* Project 2: SMS (Next.js FYP) */}
-            <motion.div variants={revealVariants} className="bg-slate-900/80 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden flex flex-col justify-between hover:border-indigo-500/40 transition-all duration-300 shadow-xl">
+            <motion.div variants={revealVariants} whileHover={cardHover} transition={cardHoverTransition} className="bg-slate-900/80 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden flex flex-col justify-between hover:border-indigo-500/40 transition-all duration-300 shadow-xl">
               <div className="p-8 sm:p-10 space-y-6">
                 <div className="flex items-center justify-between">
                   <div className="p-4 rounded-2xl bg-indigo-500/10 text-indigo-400">
@@ -606,7 +609,7 @@ export default function Home() {
               </div>
 
               <div className="space-y-4">
-                <div className="flex items-center space-x-4 p-5 rounded-2xl bg-slate-900/80 border border-white/10">
+                <motion.div whileHover={cardHover} transition={cardHoverTransition} className="flex items-center space-x-4 p-5 rounded-2xl bg-slate-900/80 border border-white/10">
                   <div className="p-3.5 rounded-xl bg-amber-500/10 text-amber-400">
                     <Mail className="w-6 h-6" />
                   </div>
@@ -616,9 +619,9 @@ export default function Home() {
                       idreekhan122@gmail.com
                     </a>
                   </div>
-                </div>
+                </motion.div>
 
-                <div className="flex items-center space-x-4 p-5 rounded-2xl bg-slate-900/80 border border-white/10">
+                <motion.div whileHover={cardHover} transition={cardHoverTransition} className="flex items-center space-x-4 p-5 rounded-2xl bg-slate-900/80 border border-white/10">
                   <div className="p-3.5 rounded-xl bg-emerald-500/10 text-emerald-400">
                     <Phone className="w-6 h-6" />
                   </div>
@@ -628,9 +631,9 @@ export default function Home() {
                       +92 320 8006787
                     </a>
                   </div>
-                </div>
+                </motion.div>
 
-                <div className="flex items-center space-x-4 p-5 rounded-2xl bg-slate-900/80 border border-white/10">
+                <motion.div whileHover={cardHover} transition={cardHoverTransition} className="flex items-center space-x-4 p-5 rounded-2xl bg-slate-900/80 border border-white/10">
                   <div className="p-3.5 rounded-xl bg-indigo-500/10 text-indigo-400">
                     <MapPin className="w-6 h-6" />
                   </div>
@@ -638,11 +641,11 @@ export default function Home() {
                     <span className="text-xs text-slate-400 block font-semibold uppercase">Location</span>
                     <span className="text-white font-bold">Swat, KPK, Pakistan</span>
                   </div>
-                </div>
+                </motion.div>
               </div>
 
               {/* Languages */}
-              <div className="p-6 rounded-2xl bg-slate-900/80 border border-white/10 space-y-3">
+              <motion.div whileHover={cardHover} transition={cardHoverTransition} className="p-6 rounded-2xl bg-slate-900/80 border border-white/10 space-y-3">
                 <h4 className="font-display font-bold text-white text-sm uppercase tracking-wider">Languages Spoken</h4>
                 <div className="flex flex-wrap gap-2">
                   {["English (Proficient)", "Urdu (Fluent)", "Pashto (Native)"].map((lang, i) => (
@@ -651,12 +654,12 @@ export default function Home() {
                     </span>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
 
             {/* Form */}
             <motion.div variants={revealVariants} className="lg:col-span-7">
-              <div className="bg-slate-900/90 backdrop-blur-xl p-8 sm:p-12 rounded-3xl border border-white/10 shadow-2xl space-y-6">
+              <motion.div whileHover={cardHover} transition={cardHoverTransition} className="bg-slate-900/90 backdrop-blur-xl p-8 sm:p-12 rounded-3xl border border-white/10 shadow-2xl space-y-6">
                 <div className="space-y-2">
                   <h4 className="text-2xl font-display font-bold text-white">Send a Direct Message</h4>
                   <p className="text-sm text-slate-400">Fill out the form below and Idrees will respond promptly.</p>
@@ -703,7 +706,7 @@ export default function Home() {
                     {isSubmitting ? "Sending Message..." : <>Send Message <Send className="w-5 h-5" /></>}
                   </Button>
                 </form>
-              </div>
+              </motion.div>
             </motion.div>
 
           </motion.div>
