@@ -77,7 +77,13 @@ export default function Home() {
     setMobileMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const headerHeight = document.querySelector("header > div")?.getBoundingClientRect().height ?? 96;
+      const top = element.getBoundingClientRect().top + window.scrollY - headerHeight;
+      if (window.matchMedia("(max-width: 1279px)").matches || shouldReduceMotion) {
+        window.scrollTo(0, Math.max(0, top));
+      } else {
+        window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+      }
     }
   };
 
