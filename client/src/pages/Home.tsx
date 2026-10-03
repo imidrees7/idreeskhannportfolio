@@ -39,7 +39,7 @@ export default function Home() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const PORTRAIT_URL = "/manus-storage/ChatGPTImageAug17,2026,01_53_22AM_7f54649d.png";
+  const PORTRAIT_URL = "/idrees-khan-portrait.jpeg";
   const CV_URL = "/manus-storage/Idrees_Khan_CV_ce58927d.pdf";
   const LINKEDIN_URL = "https://www.linkedin.com/in/idrees-khan-826079290";
   const GITHUB_URL = "https://github.com/imidrees7";
