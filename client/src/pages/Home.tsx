@@ -91,7 +91,7 @@ export default function Home() {
           {/* Desktop Links */}
           <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
             <button onClick={() => scrollToSection("about")} className="hover:text-amber-400 transition-colors">About</button>
-            <button onClick={() => scrollToSection("skills")} className="hover:text-amber-400 transition-colors">Skills & AI</button>
+            <button onClick={() => scrollToSection("skills")} className="hover:text-amber-400 transition-colors">Skills</button>
             <button onClick={() => scrollToSection("projects")} className="hover:text-amber-400 transition-colors">Projects</button>
             <button onClick={() => scrollToSection("experience")} className="hover:text-amber-400 transition-colors">Experience</button>
             <button onClick={() => scrollToSection("education")} className="hover:text-amber-400 transition-colors">Education</button>
@@ -130,7 +130,7 @@ export default function Home() {
               className="md:hidden bg-[#070b12] border-b border-white/10 px-6 py-6 space-y-4"
             >
               <button onClick={() => scrollToSection("about")} className="block w-full text-left py-2 text-slate-200 hover:text-amber-400 font-medium">About</button>
-              <button onClick={() => scrollToSection("skills")} className="block w-full text-left py-2 text-slate-200 hover:text-amber-400 font-medium">Skills & AI</button>
+              <button onClick={() => scrollToSection("skills")} className="block w-full text-left py-2 text-slate-200 hover:text-amber-400 font-medium">Skills</button>
               <button onClick={() => scrollToSection("projects")} className="block w-full text-left py-2 text-slate-200 hover:text-amber-400 font-medium">Projects</button>
               <button onClick={() => scrollToSection("experience")} className="block w-full text-left py-2 text-slate-200 hover:text-amber-400 font-medium">Experience</button>
               <button onClick={() => scrollToSection("education")} className="block w-full text-left py-2 text-slate-200 hover:text-amber-400 font-medium">Education</button>
@@ -162,18 +162,18 @@ export default function Home() {
               className="lg:col-span-7 space-y-8"
             >
               <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold tracking-widest uppercase">
-                <Sparkles className="w-4 h-4" /> Software Engineering • HTML/CSS/JS • AI Video Ads
+                <Sparkles className="w-4 h-4" /> Web Development • Python • Digital Marketing & SEO
               </div>
 
               <h1 className="text-5xl sm:text-7xl font-display font-extrabold tracking-tight leading-[1.1]">
-                Engineering <br />
+                Building Better <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-amber-200">
-                  Digital Excellence.
+                  Digital Experiences.
                 </span>
               </h1>
 
               <p className="text-lg sm:text-xl text-slate-300 font-normal max-w-2xl leading-relaxed">
-                Hi, I'm <strong className="text-white font-semibold">Idrees Khan</strong>. A Software Engineering graduate from the University of Swat (2026). I build responsive web interfaces using HTML, CSS, and JavaScript, along with advanced AI workflows and cinematic video advertisements.
+                Hi, I'm <strong className="text-white font-semibold">Idrees Khan</strong>, a Software Engineering graduate from the University of Swat (2026). I build responsive web applications, create Python-powered software and data workflows, and work on digital marketing and SEO to improve online visibility.
               </p>
 
               <div className="flex flex-wrap items-center gap-4 pt-2">
@@ -190,16 +190,16 @@ export default function Home() {
               {/* Stats Bar */}
               <div className="pt-8 border-t border-white/10 grid grid-cols-3 gap-6">
                 <div>
-                  <span className="text-2xl sm:text-3xl font-display font-extrabold text-amber-400 block">3.14</span>
-                  <span className="text-xs text-slate-400 font-medium tracking-wide uppercase">BS CGPA (2026)</span>
+                  <span className="text-2xl sm:text-3xl font-display font-extrabold text-amber-400 block">Web</span>
+                  <span className="text-xs text-slate-400 font-medium tracking-wide uppercase">HTML, CSS, JavaScript</span>
                 </div>
                 <div>
-                  <span className="text-2xl sm:text-3xl font-display font-extrabold text-amber-400 block">Web Dev</span>
-                  <span className="text-xs text-slate-400 font-medium tracking-wide uppercase">HTML, CSS, JS</span>
+                  <span className="text-2xl sm:text-3xl font-display font-extrabold text-amber-400 block">Python</span>
+                  <span className="text-xs text-slate-400 font-medium tracking-wide uppercase">Django & Data</span>
                 </div>
                 <div>
-                  <span className="text-2xl sm:text-3xl font-display font-extrabold text-amber-400 block">Python Dev</span>
-                  <span className="text-xs text-slate-400 font-medium tracking-wide uppercase">POS & Automation</span>
+                  <span className="text-2xl sm:text-3xl font-display font-extrabold text-amber-400 block">Marketing</span>
+                  <span className="text-xs text-slate-400 font-medium tracking-wide uppercase">Digital & SEO</span>
                 </div>
               </div>
             </motion.div>
@@ -251,7 +251,7 @@ export default function Home() {
             <h2 className="text-xs uppercase tracking-[0.2em] text-amber-400 font-bold">Background & Philosophy</h2>
             <h3 className="text-4xl font-display font-extrabold tracking-tight">Professional Profile</h3>
             <p className="text-slate-400 text-lg">
-              Combining solid software engineering principles with web design and cutting-edge AI creativity.
+              Combining web development and Python skills with digital marketing and search engine optimization.
             </p>
           </div>
 
@@ -260,19 +260,19 @@ export default function Home() {
               <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold">
                 <Code className="w-7 h-7" />
               </div>
-              <h4 className="text-xl font-display font-bold">POS Software & Development</h4>
+              <h4 className="text-xl font-display font-bold">Web & Python Development</h4>
               <p className="text-slate-400 text-sm leading-relaxed">
-                Graduate from the University of Swat (2026) who built a custom Point of Sale (POS) software, alongside responsive web applications using HTML, CSS, and JavaScript.
+                Software Engineering graduate from the University of Swat (2026), with hands-on experience building responsive web applications and a custom Python and Django Point of Sale system.
               </p>
             </div>
 
             <div className="bg-slate-900/60 backdrop-blur-xl p-8 rounded-3xl border border-white/10 space-y-4 hover:border-amber-500/40 transition-colors">
               <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold">
-                <Wand2 className="w-7 h-7" />
+                <Search className="w-7 h-7" />
               </div>
-              <h4 className="text-xl font-display font-bold">AI Prompting & Ad Video</h4>
+              <h4 className="text-xl font-display font-bold">Digital Marketing & SEO</h4>
               <p className="text-slate-400 text-sm leading-relaxed">
-                Expert in prompt engineering and cutting-edge AI video generation for commercial advertisements, transforming concepts into cinematic visual content.
+                Focused on digital marketing strategy and search engine optimization to help businesses strengthen their online visibility.
               </p>
             </div>
 
@@ -289,124 +289,70 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Skills & AI Section */}
+      {/* Skills Section */}
       <section id="skills" className="py-28 relative">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-20">
             <h2 className="text-xs uppercase tracking-[0.2em] text-amber-400 font-bold">Core Capabilities</h2>
-            <h3 className="text-4xl font-display font-extrabold tracking-tight">Skills & AI Specializations</h3>
+            <h3 className="text-4xl font-display font-extrabold tracking-tight">Web, Python & Digital Marketing</h3>
             <p className="text-slate-400 text-lg">
-              From web development fundamentals to state-of-the-art AI video advertising workflows.
+              Building responsive websites, practical Python software, and stronger search visibility.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            
-            {/* Highlight Card 1: AI Video Generation */}
-            <motion.div 
-              whileHover={{ y: -5 }}
-              className="bg-gradient-to-br from-amber-500/15 via-slate-900/80 to-slate-900 p-8 rounded-3xl border border-amber-500/30 space-y-4 shadow-xl col-span-1 md:col-span-2"
-            >
-              <div className="flex items-center justify-between">
-                <div className="p-3.5 rounded-2xl bg-amber-500/20 text-amber-400">
-                  <Video className="w-7 h-7" />
-                </div>
-                <Badge className="bg-amber-500/20 text-amber-300 border-amber-500/30 font-semibold">Specialized Skill</Badge>
-              </div>
-              <div>
-                <h4 className="font-display font-bold text-2xl text-white mb-2">AI Video Generation for Ads</h4>
-                <p className="text-slate-300 text-sm leading-relaxed">
-                  Crafting high-converting commercial video advertisements using advanced AI video models. Expertise in storyboard prompt generation, motion control, cinematic lighting, and automated marketing asset creation.
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-2 pt-2">
-                {["Commercial Storyboarding", "AI Video Models", "Cinematic Prompting", "Ad Copywriting", "Motion Control"].map((tag, i) => (
-                  <span key={i} className="px-3 py-1 rounded-full bg-slate-950/80 border border-white/10 text-xs text-amber-300">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Highlight Card 2: Prompt Engineering */}
-            <motion.div 
-              whileHover={{ y: -5 }}
-              className="bg-gradient-to-br from-indigo-500/15 via-slate-900/80 to-slate-900 p-8 rounded-3xl border border-indigo-500/30 space-y-4 shadow-xl col-span-1 md:col-span-2"
-            >
-              <div className="flex items-center justify-between">
-                <div className="p-3.5 rounded-2xl bg-indigo-500/20 text-indigo-400">
-                  <Wand2 className="w-7 h-7" />
-                </div>
-                <Badge className="bg-indigo-500/20 text-indigo-300 border-indigo-500/30 font-semibold">Advanced Expertise</Badge>
-              </div>
-              <div>
-                <h4 className="font-display font-bold text-2xl text-white mb-2">Prompt Engineering & AI Tools</h4>
-                <p className="text-slate-300 text-sm leading-relaxed">
-                  Designing and optimizing precise prompt architectures for large language models and generative pipelines. Automating repetitive data workflows and integrating AI APIs into software solutions.
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-2 pt-2">
-                {["System Prompts", "LLM Optimization", "Workflow Automation", "API Integration", "Structured Output"].map((tag, i) => (
-                  <span key={i} className="px-3 py-1 rounded-full bg-slate-950/80 border border-white/10 text-xs text-indigo-300">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Standard Skill Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                title: "Data Analysis with Python",
-                desc: "Pandas, NumPy, data cleaning, processing, and visual analytics.",
-                icon: <Database className="w-5 h-5 text-emerald-400" />,
-                badge: "Advanced"
+                title: "Web Development",
+                desc: "Responsive websites and interactive interfaces built with HTML, CSS, JavaScript, React, and Next.js.",
+                icon: <Code className="w-7 h-7 text-blue-400" />,
+                details: "HTML · CSS · JavaScript · React · Next.js"
               },
               {
-                title: "Web Development (HTML, CSS, JS)",
-                desc: "Clean fundamentals, responsive layouts, interactive JavaScript applications.",
-                icon: <Code className="w-5 h-5 text-blue-400" />,
-                badge: "Proficient"
-              },
-              {
-                title: "Customer Email Support",
-                desc: "Professional correspondence, issue resolution, client communication.",
-                icon: <Mail className="w-5 h-5 text-amber-400" />,
-                badge: "Experienced"
-              },
-              {
-                title: "Graphic Design & Office",
-                desc: "Graphic design tools, Microsoft Office Suite (Word, Excel, PPT).",
-                icon: <Layers className="w-5 h-5 text-rose-400" />,
-                badge: "Skilled"
+                title: "Python Development",
+                desc: "Python programming for practical software, data analysis, and automation, including a Django-based POS system.",
+                icon: <Database className="w-7 h-7 text-emerald-400" />,
+                details: "Python · Django · Pandas · NumPy"
               },
               {
                 title: "Digital Marketing & SEO",
-                desc: "Digital marketing strategy, search engine optimization, and online visibility.",
-                icon: <Search className="w-5 h-5 text-cyan-400" />,
-                badge: "Skilled"
+                desc: "Digital marketing strategy and search engine optimization to improve online visibility and reach.",
+                icon: <Search className="w-7 h-7 text-cyan-400" />,
+                details: "Digital Marketing · SEO · Online Visibility"
               }
-            ].map((skill, index) => (
+            ].map((skill) => (
               <motion.div 
-                key={index}
+                key={skill.title}
                 whileHover={{ y: -5 }}
-                className="bg-slate-900/60 backdrop-blur-xl p-6 rounded-3xl border border-white/10 hover:border-amber-500/40 transition-all duration-300 space-y-4"
+                className="bg-slate-900/80 backdrop-blur-xl p-8 rounded-3xl border border-white/10 hover:border-amber-500/40 transition-all duration-300 space-y-5"
               >
-                <div className="flex items-center justify-between">
-                  <div className="p-3 rounded-2xl bg-slate-950 border border-white/10">
-                    {skill.icon}
-                  </div>
-                  <Badge variant="outline" className="border-white/15 text-slate-300 text-xs">
-                    {skill.badge}
-                  </Badge>
+                <div className="p-3.5 rounded-2xl bg-slate-950 border border-white/10 w-fit">
+                  {skill.icon}
                 </div>
                 <div>
-                  <h4 className="font-display font-bold text-lg text-white mb-1">{skill.title}</h4>
-                  <p className="text-sm text-slate-400">{skill.desc}</p>
+                  <h4 className="font-display font-bold text-2xl text-white mb-2">{skill.title}</h4>
+                  <p className="text-sm text-slate-300 leading-relaxed">{skill.desc}</p>
                 </div>
+                <p className="text-xs text-amber-300 font-medium">{skill.details}</p>
               </motion.div>
             ))}
+          </div>
 
+          <div className="mt-12">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-5">Additional Skills</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[
+                { title: "AI Video & Ad Creation", icon: <Video className="w-5 h-5 text-amber-400" /> },
+                { title: "Prompt Engineering & AI Tools", icon: <Wand2 className="w-5 h-5 text-indigo-400" /> },
+                { title: "Customer Email Support", icon: <Mail className="w-5 h-5 text-emerald-400" /> },
+                { title: "Graphic Design & Office", icon: <Layers className="w-5 h-5 text-rose-400" /> }
+              ].map((skill) => (
+                <div key={skill.title} className="flex items-center gap-3 p-4 rounded-2xl bg-slate-900/50 border border-white/10">
+                  {skill.icon}
+                  <span className="text-sm text-slate-300">{skill.title}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -515,9 +461,9 @@ export default function Home() {
                     <h4 className="text-2xl font-display font-bold text-white">Fresher & Active Job Seeker</h4>
                     <Badge variant="outline" className="border-amber-500/30 text-amber-400 text-xs">Present</Badge>
                   </div>
-                  <p className="text-xs text-amber-400/90 font-semibold uppercase tracking-wider">Software Engineering & AI Roles</p>
+                  <p className="text-xs text-amber-400/90 font-semibold uppercase tracking-wider">Web Development, Python & Digital Marketing</p>
                   <p className="text-slate-300 text-sm leading-relaxed">
-                    Actively seeking entry-level software engineering or IT roles to apply strong problem-solving skills, adaptability, and a fast learning mindset within a professional team environment.
+                    Actively seeking entry-level opportunities in web development, Python, and digital marketing or SEO, bringing strong problem-solving skills and a fast learning mindset.
                   </p>
                   <ul className="space-y-3 text-xs sm:text-sm text-slate-300 pt-2">
                     <li className="flex items-start gap-3">
@@ -586,7 +532,7 @@ export default function Home() {
                 <h2 className="text-xs uppercase tracking-[0.2em] text-amber-400 font-bold">Connect With Me</h2>
                 <h3 className="text-4xl font-display font-extrabold">Let's Build Something Great</h3>
                 <p className="text-slate-400 text-base leading-relaxed">
-                  I'm actively seeking entry-level software engineering positions, AI advertising projects, and collaborative technical roles. Reach out anytime!
+                    I'm actively seeking opportunities in web development, Python, and digital marketing or SEO. Reach out to discuss a project or role.
                 </p>
               </div>
 
