@@ -25,7 +25,8 @@ import {
   PlayCircle,
   Wand2,
   Github,
-  Linkedin
+  Linkedin,
+  Search
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -377,6 +378,12 @@ export default function Home() {
                 title: "Graphic Design & Office",
                 desc: "Graphic design tools, Microsoft Office Suite (Word, Excel, PPT).",
                 icon: <Layers className="w-5 h-5 text-rose-400" />,
+                badge: "Skilled"
+              },
+              {
+                title: "Digital Marketing & SEO",
+                desc: "Digital marketing strategy, search engine optimization, and online visibility.",
+                icon: <Search className="w-5 h-5 text-cyan-400" />,
                 badge: "Skilled"
               }
             ].map((skill, index) => (
