@@ -38,7 +38,6 @@ import { toast } from "sonner";
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
   const revealVariants: Variants = {
@@ -57,22 +56,21 @@ export default function Home() {
   const cardHoverTransition = { type: "spring" as const, stiffness: 320, damping: 24 };
 
   const PORTRAIT_URL = "/idrees-khan-portrait.jpeg";
-  const CV_URL = "/manus-storage/Idrees_Khan_CV_ce58927d.pdf";
+  const CV_URL = "/Idrees_Khan_CV.pdf";
   const LINKEDIN_URL = "https://www.linkedin.com/in/idrees-khan-826079290";
   const GITHUB_URL = "https://github.com/imidrees7";
 
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) {
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       toast.error("Please fill in all fields before sending.");
       return;
     }
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      toast.success("Message sent successfully! Idrees will get back to you soon.");
-      setFormData({ name: "", email: "", message: "" });
-    }, 1000);
+    const subject = encodeURIComponent(`Portfolio inquiry from ${formData.name.trim()}`);
+    const body = encodeURIComponent(
+      `Name: ${formData.name.trim()}\nEmail: ${formData.email.trim()}\n\n${formData.message.trim()}`
+    );
+    window.location.href = `mailto:idreekhan122@gmail.com?subject=${subject}&body=${body}`;
   };
 
   const scrollToSection = (id: string) => {
@@ -94,7 +92,7 @@ export default function Home() {
       {/* Navigation */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-[#070b12]/80 backdrop-blur-xl border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 h-24 flex items-center justify-between">
-          <div className="flex items-center space-x-3 cursor-pointer" onClick={() => scrollToSection("hero")}>
+          <button type="button" aria-label="Back to top" className="flex items-center space-x-3 cursor-pointer text-left" onClick={() => scrollToSection("hero")}>
             <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-500 to-indigo-600 flex items-center justify-center font-bold text-slate-950 shadow-lg shadow-amber-500/20">
               IK
             </div>
@@ -102,10 +100,10 @@ export default function Home() {
               <span className="font-display font-extrabold text-lg tracking-wide block">IDREES KHAN</span>
               <span className="text-xs text-amber-400 font-medium tracking-widest uppercase">Software Engineer</span>
             </div>
-          </div>
+          </button>
 
           {/* Desktop Links */}
-          <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+          <nav className="hidden xl:flex items-center space-x-8 text-sm font-medium text-slate-300">
             <button onClick={() => scrollToSection("about")} className="hover:text-amber-400 transition-colors">About</button>
             <button onClick={() => scrollToSection("skills")} className="hover:text-amber-400 transition-colors">Skills</button>
             <button onClick={() => scrollToSection("projects")} className="hover:text-amber-400 transition-colors">Projects</button>
@@ -114,7 +112,7 @@ export default function Home() {
             <button onClick={() => scrollToSection("contact")} className="hover:text-amber-400 transition-colors">Contact</button>
           </nav>
 
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden xl:flex items-center space-x-4">
             <a href={CV_URL} target="_blank" rel="noopener noreferrer">
               <Button variant="outline" className="border-amber-500/30 text-amber-400 hover:bg-amber-500/10 hover:text-amber-300 gap-2 rounded-xl">
                 <Download className="w-4 h-4" /> CV PDF
@@ -126,8 +124,12 @@ export default function Home() {
           </div>
 
           {/* Mobile Toggle */}
-          <div className="md:hidden">
+          <div className="xl:hidden">
             <button 
+              type="button"
+              aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-navigation"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-xl bg-slate-900 border border-white/10 text-slate-300"
             >
@@ -143,7 +145,8 @@ export default function Home() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-[#070b12] border-b border-white/10 px-6 py-6 space-y-4"
+              id="mobile-navigation"
+              className="xl:hidden max-h-[calc(100vh-6rem)] overflow-y-auto overscroll-contain bg-[#070b12] border-b border-white/10 px-6 py-6 space-y-4"
             >
               <button onClick={() => scrollToSection("about")} className="block w-full text-left py-2 text-slate-200 hover:text-amber-400 font-medium">About</button>
               <button onClick={() => scrollToSection("skills")} className="block w-full text-left py-2 text-slate-200 hover:text-amber-400 font-medium">Skills</button>
@@ -667,9 +670,11 @@ export default function Home() {
 
                 <form onSubmit={handleContactSubmit} className="space-y-6">
                   <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-slate-300">Your Name</label>
+                    <label htmlFor="contact-name" className="text-xs font-bold uppercase tracking-widest text-slate-300">Your Name</label>
                     <Input 
+                      id="contact-name"
                       placeholder="e.g. Sarah Jenkins" 
+                      required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className="bg-slate-950 border-white/10 text-white h-14 rounded-xl focus:border-amber-500"
@@ -677,10 +682,12 @@ export default function Home() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-slate-300">Your Email</label>
+                    <label htmlFor="contact-email" className="text-xs font-bold uppercase tracking-widest text-slate-300">Your Email</label>
                     <Input 
+                      id="contact-email"
                       type="email"
                       placeholder="e.g. sarah@example.com" 
+                      required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="bg-slate-950 border-white/10 text-white h-14 rounded-xl focus:border-amber-500"
@@ -688,10 +695,12 @@ export default function Home() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-slate-300">Message</label>
+                    <label htmlFor="contact-message" className="text-xs font-bold uppercase tracking-widest text-slate-300">Message</label>
                     <Textarea 
+                      id="contact-message"
                       placeholder="Write your project details or inquiry here..." 
                       rows={5}
+                      required
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="bg-slate-950 border-white/10 text-white rounded-xl focus:border-amber-500 resize-none p-4"
@@ -700,10 +709,9 @@ export default function Home() {
 
                   <Button 
                     type="submit" 
-                    disabled={isSubmitting}
                     className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold h-14 rounded-xl text-base shadow-xl shadow-amber-500/20 gap-2"
                   >
-                    {isSubmitting ? "Sending Message..." : <>Send Message <Send className="w-5 h-5" /></>}
+                    <>Open Email Draft <Send className="w-5 h-5" /></>
                   </Button>
                 </form>
               </motion.div>
