@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion, type Variants } from "framer-motion";
 import { 
   Code, 
   Database, 
@@ -39,6 +39,20 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
+
+  const revealVariants: Variants = {
+    hidden: { opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 24 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: shouldReduceMotion ? 0.01 : 0.55, ease: "easeOut" }
+    }
+  };
+  const staggerVariants: Variants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: shouldReduceMotion ? 0 : 0.12 } }
+  };
 
   const PORTRAIT_URL = "/idrees-khan-portrait.jpeg";
   const CV_URL = "/manus-storage/Idrees_Khan_CV_ce58927d.pdf";
@@ -156,9 +170,9 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
             <motion.div 
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: shouldReduceMotion ? 0 : -30 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7 }}
+              transition={{ duration: shouldReduceMotion ? 0.01 : 0.7 }}
               className="lg:col-span-7 space-y-8"
             >
               <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold tracking-widest uppercase">
@@ -206,9 +220,9 @@ export default function Home() {
 
             {/* Hero Image Card */}
             <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
+              transition={{ duration: shouldReduceMotion ? 0.01 : 0.7, delay: shouldReduceMotion ? 0 : 0.2 }}
               className="lg:col-span-5 flex justify-center relative"
             >
               <div className="relative w-full max-w-md">
@@ -247,16 +261,28 @@ export default function Home() {
       {/* About Section */}
       <section id="about" className="py-28 bg-white/[0.02] border-t border-white/10 relative">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="max-w-3xl mx-auto text-center space-y-4 mb-20">
+          <motion.div
+            variants={revealVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+            className="max-w-3xl mx-auto text-center space-y-4 mb-20"
+          >
             <h2 className="text-xs uppercase tracking-[0.2em] text-amber-400 font-bold">Background & Philosophy</h2>
             <h3 className="text-4xl font-display font-extrabold tracking-tight">Professional Profile</h3>
             <p className="text-slate-400 text-lg">
               Combining web development and Python skills with digital marketing and search engine optimization.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-slate-900/60 backdrop-blur-xl p-8 rounded-3xl border border-white/10 space-y-4 hover:border-amber-500/40 transition-colors">
+          <motion.div
+            variants={staggerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          >
+            <motion.div variants={revealVariants} className="bg-slate-900/60 backdrop-blur-xl p-8 rounded-3xl border border-white/10 space-y-4 hover:border-amber-500/40 transition-colors">
               <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold">
                 <Code className="w-7 h-7" />
               </div>
@@ -264,9 +290,9 @@ export default function Home() {
               <p className="text-slate-400 text-sm leading-relaxed">
                 Software Engineering graduate from the University of Swat (2026), with hands-on experience building responsive web applications and a custom Python and Django Point of Sale system.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="bg-slate-900/60 backdrop-blur-xl p-8 rounded-3xl border border-white/10 space-y-4 hover:border-amber-500/40 transition-colors">
+            <motion.div variants={revealVariants} className="bg-slate-900/60 backdrop-blur-xl p-8 rounded-3xl border border-white/10 space-y-4 hover:border-amber-500/40 transition-colors">
               <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold">
                 <Search className="w-7 h-7" />
               </div>
@@ -274,9 +300,9 @@ export default function Home() {
               <p className="text-slate-400 text-sm leading-relaxed">
                 Focused on digital marketing strategy and search engine optimization to help businesses strengthen their online visibility.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="bg-slate-900/60 backdrop-blur-xl p-8 rounded-3xl border border-white/10 space-y-4 hover:border-amber-500/40 transition-colors">
+            <motion.div variants={revealVariants} className="bg-slate-900/60 backdrop-blur-xl p-8 rounded-3xl border border-white/10 space-y-4 hover:border-amber-500/40 transition-colors">
               <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold">
                 <Briefcase className="w-7 h-7" />
               </div>
@@ -284,23 +310,35 @@ export default function Home() {
               <p className="text-slate-400 text-sm leading-relaxed">
                 Experienced in professional customer email support, meticulous data entry, and fluent multilingual communication in English, Urdu, and Pashto.
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* Skills Section */}
       <section id="skills" className="py-28 relative">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="max-w-3xl mx-auto text-center space-y-4 mb-20">
+          <motion.div
+            variants={revealVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+            className="max-w-3xl mx-auto text-center space-y-4 mb-20"
+          >
             <h2 className="text-xs uppercase tracking-[0.2em] text-amber-400 font-bold">Core Capabilities</h2>
             <h3 className="text-4xl font-display font-extrabold tracking-tight">Web, Python & Digital Marketing</h3>
             <p className="text-slate-400 text-lg">
               Building responsive websites, practical Python software, and stronger search visibility.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <motion.div
+            variants={staggerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+          >
             {[
               {
                 title: "Web Development",
@@ -323,7 +361,8 @@ export default function Home() {
             ].map((skill) => (
               <motion.div 
                 key={skill.title}
-                whileHover={{ y: -5 }}
+                variants={revealVariants}
+                whileHover={shouldReduceMotion ? undefined : { y: -5 }}
                 className="bg-slate-900/80 backdrop-blur-xl p-8 rounded-3xl border border-white/10 hover:border-amber-500/40 transition-all duration-300 space-y-5"
               >
                 <div className="p-3.5 rounded-2xl bg-slate-950 border border-white/10 w-fit">
@@ -336,42 +375,60 @@ export default function Home() {
                 <p className="text-xs text-amber-300 font-medium">{skill.details}</p>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-          <div className="mt-12">
+          <motion.div
+            variants={revealVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="mt-12"
+          >
             <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-5">Additional Skills</h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <motion.div variants={staggerVariants} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
                 { title: "AI Video & Ad Creation", icon: <Video className="w-5 h-5 text-amber-400" /> },
                 { title: "Prompt Engineering & AI Tools", icon: <Wand2 className="w-5 h-5 text-indigo-400" /> },
                 { title: "Customer Email Support", icon: <Mail className="w-5 h-5 text-emerald-400" /> },
                 { title: "Graphic Design & Office", icon: <Layers className="w-5 h-5 text-rose-400" /> }
               ].map((skill) => (
-                <div key={skill.title} className="flex items-center gap-3 p-4 rounded-2xl bg-slate-900/50 border border-white/10">
+                <motion.div key={skill.title} variants={revealVariants} className="flex items-center gap-3 p-4 rounded-2xl bg-slate-900/50 border border-white/10">
                   {skill.icon}
                   <span className="text-sm text-slate-300">{skill.title}</span>
-                </div>
+                </motion.div>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* Projects Section */}
       <section id="projects" className="py-28 bg-white/[0.02] border-t border-white/10 relative">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="max-w-3xl mx-auto text-center space-y-4 mb-20">
+          <motion.div
+            variants={revealVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+            className="max-w-3xl mx-auto text-center space-y-4 mb-20"
+          >
             <h2 className="text-xs uppercase tracking-[0.2em] text-amber-400 font-bold">Featured Work</h2>
             <h3 className="text-4xl font-display font-extrabold tracking-tight">Software Projects Showcase</h3>
             <p className="text-slate-400 text-lg">
               Engineered software systems built for resilience, scalability, and practical utility.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <motion.div
+            variants={staggerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+          >
             
             {/* Project 1: POS (Django) */}
-            <div className="bg-slate-900/80 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden flex flex-col justify-between hover:border-amber-500/40 transition-all duration-300 shadow-xl">
+            <motion.div variants={revealVariants} className="bg-slate-900/80 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden flex flex-col justify-between hover:border-amber-500/40 transition-all duration-300 shadow-xl">
               <div className="p-8 sm:p-10 space-y-6">
                 <div className="flex items-center justify-between">
                   <div className="p-4 rounded-2xl bg-amber-500/10 text-amber-400">
@@ -402,10 +459,10 @@ export default function Home() {
                 <span>Reliability: 100% Offline Ready</span>
                 <span className="text-amber-400 flex items-center gap-1.5">Production Grade <CheckCircle2 className="w-4 h-4" /></span>
               </div>
-            </div>
+            </motion.div>
 
             {/* Project 2: SMS (Next.js FYP) */}
-            <div className="bg-slate-900/80 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden flex flex-col justify-between hover:border-indigo-500/40 transition-all duration-300 shadow-xl">
+            <motion.div variants={revealVariants} className="bg-slate-900/80 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden flex flex-col justify-between hover:border-indigo-500/40 transition-all duration-300 shadow-xl">
               <div className="p-8 sm:p-10 space-y-6">
                 <div className="flex items-center justify-between">
                   <div className="p-4 rounded-2xl bg-indigo-500/10 text-indigo-400">
@@ -436,19 +493,25 @@ export default function Home() {
                 <span>University of Swat • FYP</span>
                 <span className="text-indigo-400 flex items-center gap-1.5">Validated Success <CheckCircle2 className="w-4 h-4" /></span>
               </div>
-            </div>
+            </motion.div>
 
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Experience & Education Section */}
       <section id="experience" className="py-28 relative">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <motion.div
+            variants={staggerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-16"
+          >
             
             {/* Experience */}
-            <div className="space-y-8">
+            <motion.div variants={revealVariants} className="space-y-8">
               <div className="space-y-2">
                 <h2 className="text-xs uppercase tracking-[0.2em] text-amber-400 font-bold">Professional Career</h2>
                 <h3 className="text-4xl font-display font-extrabold">Experience</h3>
@@ -481,10 +544,10 @@ export default function Home() {
                   </ul>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Education */}
-            <div id="education" className="space-y-8">
+            <motion.div id="education" variants={revealVariants} className="space-y-8">
               <div className="space-y-2">
                 <h2 className="text-xs uppercase tracking-[0.2em] text-indigo-400 font-bold">Academic Background</h2>
                 <h3 className="text-4xl font-display font-extrabold">Education</h3>
@@ -515,19 +578,25 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Contact Section */}
       <section id="contact" className="py-28 bg-white/[0.02] border-t border-white/10 relative">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <motion.div
+            variants={staggerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            className="grid grid-cols-1 lg:grid-cols-12 gap-12"
+          >
             
             {/* Info */}
-            <div className="lg:col-span-5 space-y-8">
+            <motion.div variants={revealVariants} className="lg:col-span-5 space-y-8">
               <div className="space-y-4">
                 <h2 className="text-xs uppercase tracking-[0.2em] text-amber-400 font-bold">Connect With Me</h2>
                 <h3 className="text-4xl font-display font-extrabold">Let's Build Something Great</h3>
@@ -583,10 +652,10 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Form */}
-            <div className="lg:col-span-7">
+            <motion.div variants={revealVariants} className="lg:col-span-7">
               <div className="bg-slate-900/90 backdrop-blur-xl p-8 sm:p-12 rounded-3xl border border-white/10 shadow-2xl space-y-6">
                 <div className="space-y-2">
                   <h4 className="text-2xl font-display font-bold text-white">Send a Direct Message</h4>
@@ -635,9 +704,9 @@ export default function Home() {
                   </Button>
                 </form>
               </div>
-            </div>
+            </motion.div>
 
-          </div>
+          </motion.div>
         </div>
       </section>
 
