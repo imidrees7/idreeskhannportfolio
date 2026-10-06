@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion, type Variants } from "framer-motion";
 import { 
   Code, 
@@ -40,6 +40,13 @@ export default function Home() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const shouldReduceMotion = useReducedMotion();
 
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("contact") === "sent") {
+      toast.success("Your message was sent successfully.");
+      window.history.replaceState({}, "", window.location.pathname);
+    }
+  }, []);
+
   const revealVariants: Variants = {
     hidden: { opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 24 },
     visible: {
@@ -59,19 +66,6 @@ export default function Home() {
   const CV_URL = "/Idrees_Khan_CV.pdf";
   const LINKEDIN_URL = "https://www.linkedin.com/in/idrees-khan-826079290";
   const GITHUB_URL = "https://github.com/imidrees7";
-
-  const handleContactSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      toast.error("Please fill in all fields before sending.");
-      return;
-    }
-    const subject = encodeURIComponent(`Portfolio inquiry from ${formData.name.trim()}`);
-    const body = encodeURIComponent(
-      `Name: ${formData.name.trim()}\nEmail: ${formData.email.trim()}\n\n${formData.message.trim()}`
-    );
-    window.location.href = `mailto:idreekhan122@gmail.com?subject=${subject}&body=${body}`;
-  };
 
   const scrollToSection = (id: string) => {
     setMobileMenuOpen(false);
@@ -674,11 +668,19 @@ export default function Home() {
                   <p className="text-sm text-slate-400">Fill out the form below and Idrees will respond promptly.</p>
                 </div>
 
-                <form onSubmit={handleContactSubmit} className="space-y-6">
+                <form
+                  name="contact"
+                  method="POST"
+                  action="/?contact=sent"
+                  data-netlify="true"
+                  className="space-y-6"
+                >
+                  <input type="hidden" name="form-name" value="contact" />
                   <div className="space-y-2">
                     <label htmlFor="contact-name" className="text-xs font-bold uppercase tracking-widest text-slate-300">Your Name</label>
                     <Input 
                       id="contact-name"
+                      name="name"
                       placeholder="e.g. Sarah Jenkins" 
                       required
                       value={formData.name}
@@ -691,6 +693,7 @@ export default function Home() {
                     <label htmlFor="contact-email" className="text-xs font-bold uppercase tracking-widest text-slate-300">Your Email</label>
                     <Input 
                       id="contact-email"
+                      name="email"
                       type="email"
                       placeholder="e.g. sarah@example.com" 
                       required
@@ -704,6 +707,7 @@ export default function Home() {
                     <label htmlFor="contact-message" className="text-xs font-bold uppercase tracking-widest text-slate-300">Message</label>
                     <Textarea 
                       id="contact-message"
+                      name="message"
                       placeholder="Write your project details or inquiry here..." 
                       rows={5}
                       required
@@ -717,7 +721,7 @@ export default function Home() {
                     type="submit" 
                     className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold h-14 rounded-xl text-base shadow-xl shadow-amber-500/20 gap-2"
                   >
-                    <>Open Email Draft <Send className="w-5 h-5" /></>
+                    <>Send Message <Send className="w-5 h-5" /></>
                   </Button>
                 </form>
               </motion.div>
