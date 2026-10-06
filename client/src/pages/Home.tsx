@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence, useReducedMotion, type Variants } from "framer-motion";
 import { 
   Code, 
@@ -38,14 +38,8 @@ import { toast } from "sonner";
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const shouldReduceMotion = useReducedMotion();
-
-  useEffect(() => {
-    if (new URLSearchParams(window.location.search).get("contact") === "sent") {
-      toast.success("Your message was sent successfully.");
-      window.history.replaceState({}, "", window.location.pathname);
-    }
-  }, []);
 
   const revealVariants: Variants = {
     hidden: { opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 24 },
@@ -66,6 +60,48 @@ export default function Home() {
   const CV_URL = "/Idrees_Khan_CV.pdf";
   const LINKEDIN_URL = "https://www.linkedin.com/in/idrees-khan-826079290";
   const GITHUB_URL = "https://github.com/imidrees7";
+
+  const handleContactSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const name = formData.name.trim();
+    const email = formData.email.trim();
+    const message = formData.message.trim();
+
+    if (!name || !email || !message) {
+      toast.error("Please fill in all fields before sending.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/idreekhan122@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          _replyto: email,
+          _subject: `Portfolio inquiry from ${name}`,
+          message,
+        }),
+      });
+      const result = (await response.json()) as { success?: boolean | string };
+
+      if (!response.ok || String(result.success).toLowerCase() !== "true") {
+        throw new Error("The message could not be sent.");
+      }
+
+      setFormData({ name: "", email: "", message: "" });
+      toast.success("Message submitted. Thank you for reaching out.");
+    } catch {
+      toast.error("Unable to send your message. Please try again or email me directly.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const scrollToSection = (id: string) => {
     setMobileMenuOpen(false);
@@ -668,14 +704,7 @@ export default function Home() {
                   <p className="text-sm text-slate-400">Fill out the form below and Idrees will respond promptly.</p>
                 </div>
 
-                <form
-                  name="contact"
-                  method="POST"
-                  action="/?contact=sent"
-                  data-netlify="true"
-                  className="space-y-6"
-                >
-                  <input type="hidden" name="form-name" value="contact" />
+                <form onSubmit={handleContactSubmit} className="space-y-6">
                   <div className="space-y-2">
                     <label htmlFor="contact-name" className="text-xs font-bold uppercase tracking-widest text-slate-300">Your Name</label>
                     <Input 
@@ -719,9 +748,10 @@ export default function Home() {
 
                   <Button 
                     type="submit" 
+                    disabled={isSubmitting}
                     className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold h-14 rounded-xl text-base shadow-xl shadow-amber-500/20 gap-2"
                   >
-                    <>Send Message <Send className="w-5 h-5" /></>
+                    <>{isSubmitting ? "Sending..." : "Send Message"} <Send className="w-5 h-5" /></>
                   </Button>
                 </form>
               </motion.div>
