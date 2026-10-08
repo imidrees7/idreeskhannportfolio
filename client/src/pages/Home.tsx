@@ -58,7 +58,7 @@ export default function Home() {
 
   const PORTRAIT_URL = "/idrees-khan-portrait.jpeg";
   const CV_URL = "/Idrees_Khan_CV.pdf";
-  const LINKEDIN_URL = "https://www.linkedin.com/in/idrees-khan-826079290";
+  const LINKEDIN_URL = "https://www.linkedin.com/in/idrees-khan-se/";
   const GITHUB_URL = "https://github.com/imidrees7";
 
   const handleContactSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
