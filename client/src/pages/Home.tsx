@@ -1,43 +1,67 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence, useReducedMotion, type Variants } from "framer-motion";
-import { 
-  Code, 
-  Database, 
-  Terminal, 
-  Cpu, 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Download, 
-  ExternalLink, 
-  FileText, 
-  CheckCircle2, 
-  User, 
-  Briefcase, 
-  GraduationCap, 
-  Award, 
-  Send,
-  Menu,
-  X,
-  Sparkles,
-  Layers,
-  Video,
-  PlayCircle,
-  Wand2,
+import { AnimatePresence, motion, useReducedMotion, type Variants } from "framer-motion";
+import {
+  Briefcase,
+  CheckCircle2,
+  Code,
+  Database,
+  Download,
+  FileText,
   Github,
+  GraduationCap,
+  Layers,
   Linkedin,
-  Search
+  Mail,
+  MapPin,
+  Menu,
+  Phone,
+  Search,
+  Send,
+  Sparkles,
+  Terminal,
+  Video,
+  Wand2,
+  X,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 
+type ContactForm = {
+  name: string;
+  email: string;
+  message: string;
+};
+
+const initialFormData: ContactForm = {
+  name: "",
+  email: "",
+  message: "",
+};
+
+const navigationItems = [
+  "About",
+  "Skills",
+  "Projects",
+  "Experience",
+  "Education",
+  "Contact",
+];
+
+const additionalSkills = [
+  { title: "AI Video & Ad Creation", icon: <Video className="w-5 h-5 text-amber-400" /> },
+  { title: "Prompt Engineering & AI Tools", icon: <Wand2 className="w-5 h-5 text-indigo-400" /> },
+  { title: "Customer Email Support", icon: <Mail className="w-5 h-5 text-emerald-400" /> },
+  { title: "Graphic Design & Office", icon: <Layers className="w-5 h-5 text-rose-400" /> },
+];
+
+const languageBadges = ["English (Proficient)", "Urdu (Fluent)", "Pashto (Native)"];
+
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState<ContactForm>(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
@@ -60,6 +84,15 @@ export default function Home() {
   const CV_URL = "/Idrees_Khan_CV.pdf";
   const LINKEDIN_URL = "https://www.linkedin.com/in/idrees-khan-se/";
   const GITHUB_URL = "https://github.com/imidrees7";
+
+  const handleFormChange =
+    (field: keyof ContactForm) =>
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setFormData((current) => ({
+        ...current,
+        [field]: event.target.value,
+      }));
+    };
 
   const handleContactSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -94,7 +127,7 @@ export default function Home() {
         throw new Error("The message could not be sent.");
       }
 
-      setFormData({ name: "", email: "", message: "" });
+      setFormData(initialFormData);
       toast.success("Message submitted. Thank you for reaching out.");
     } catch {
       toast.error("Unable to send your message. Please try again or email me directly.");
@@ -140,12 +173,16 @@ export default function Home() {
 
           {/* Desktop Links */}
           <nav className="hidden xl:flex items-center space-x-8 text-sm font-medium text-slate-300">
-            <button onClick={() => scrollToSection("about")} className="hover:text-amber-400 transition-colors">About</button>
-            <button onClick={() => scrollToSection("skills")} className="hover:text-amber-400 transition-colors">Skills</button>
-            <button onClick={() => scrollToSection("projects")} className="hover:text-amber-400 transition-colors">Projects</button>
-            <button onClick={() => scrollToSection("experience")} className="hover:text-amber-400 transition-colors">Experience</button>
-            <button onClick={() => scrollToSection("education")} className="hover:text-amber-400 transition-colors">Education</button>
-            <button onClick={() => scrollToSection("contact")} className="hover:text-amber-400 transition-colors">Contact</button>
+            {navigationItems.map((item) => (
+              <button
+                key={item}
+                type="button"
+                onClick={() => scrollToSection(item.toLowerCase())}
+                className="hover:text-amber-400 transition-colors"
+              >
+                {item}
+              </button>
+            ))}
           </nav>
 
           <div className="hidden xl:flex items-center space-x-4">
@@ -177,19 +214,23 @@ export default function Home() {
         {/* Mobile Menu */}
         <AnimatePresence>
           {mobileMenuOpen && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               id="mobile-navigation"
               className="xl:hidden max-h-[calc(100vh-6rem)] overflow-y-auto overscroll-contain bg-[#070b12] border-b border-white/10 px-6 py-6 space-y-4"
             >
-              <button onClick={() => scrollToSection("about")} className="block w-full text-left py-2 text-slate-200 hover:text-amber-400 font-medium">About</button>
-              <button onClick={() => scrollToSection("skills")} className="block w-full text-left py-2 text-slate-200 hover:text-amber-400 font-medium">Skills</button>
-              <button onClick={() => scrollToSection("projects")} className="block w-full text-left py-2 text-slate-200 hover:text-amber-400 font-medium">Projects</button>
-              <button onClick={() => scrollToSection("experience")} className="block w-full text-left py-2 text-slate-200 hover:text-amber-400 font-medium">Experience</button>
-              <button onClick={() => scrollToSection("education")} className="block w-full text-left py-2 text-slate-200 hover:text-amber-400 font-medium">Education</button>
-              <button onClick={() => scrollToSection("contact")} className="block w-full text-left py-2 text-slate-200 hover:text-amber-400 font-medium">Contact</button>
+              {navigationItems.map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  onClick={() => scrollToSection(item.toLowerCase())}
+                  className="block w-full text-left py-2 text-slate-200 hover:text-amber-400 font-medium"
+                >
+                  {item}
+                </button>
+              ))}
               <div className="pt-2 flex flex-col gap-3">
                 <a href={CV_URL} target="_blank" rel="noopener noreferrer" className="w-full">
                   <Button variant="outline" className="w-full border-amber-500/30 text-amber-400 gap-2 rounded-xl">
@@ -210,7 +251,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: shouldReduceMotion ? 0 : -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: shouldReduceMotion ? 0.01 : 0.7 }}
@@ -260,7 +301,7 @@ export default function Home() {
             </motion.div>
 
             {/* Hero Image Card */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: shouldReduceMotion ? 0.01 : 0.7, delay: shouldReduceMotion ? 0 : 0.2 }}
@@ -428,13 +469,14 @@ export default function Home() {
           >
             <h4 className="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-5">Additional Skills</h4>
             <motion.div variants={staggerVariants} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {[
-                { title: "AI Video & Ad Creation", icon: <Video className="w-5 h-5 text-amber-400" /> },
-                { title: "Prompt Engineering & AI Tools", icon: <Wand2 className="w-5 h-5 text-indigo-400" /> },
-                { title: "Customer Email Support", icon: <Mail className="w-5 h-5 text-emerald-400" /> },
-                { title: "Graphic Design & Office", icon: <Layers className="w-5 h-5 text-rose-400" /> }
-              ].map((skill) => (
-                <motion.div key={skill.title} variants={revealVariants} whileHover={cardHover} transition={cardHoverTransition} className="flex items-center gap-3 p-4 rounded-2xl bg-slate-900/50 border border-white/10">
+              {additionalSkills.map((skill) => (
+                <motion.div
+                  key={skill.title}
+                  variants={revealVariants}
+                  whileHover={cardHover}
+                  transition={cardHoverTransition}
+                  className="flex items-center gap-3 p-4 rounded-2xl bg-slate-900/50 border border-white/10"
+                >
                   {skill.icon}
                   <span className="text-sm text-slate-300">{skill.title}</span>
                 </motion.div>
@@ -687,8 +729,8 @@ export default function Home() {
               <motion.div whileHover={cardHover} transition={cardHoverTransition} className="p-6 rounded-2xl bg-slate-900/80 border border-white/10 space-y-3">
                 <h4 className="font-display font-bold text-white text-sm uppercase tracking-wider">Languages Spoken</h4>
                 <div className="flex flex-wrap gap-2">
-                  {["English (Proficient)", "Urdu (Fluent)", "Pashto (Native)"].map((lang, i) => (
-                    <span key={i} className="px-3.5 py-1.5 rounded-full bg-slate-950 border border-white/10 text-xs text-amber-300 font-semibold">
+                  {languageBadges.map((lang) => (
+                    <span key={lang} className="px-3.5 py-1.5 rounded-full bg-slate-950 border border-white/10 text-xs text-amber-300 font-semibold">
                       {lang}
                     </span>
                   ))}
@@ -707,41 +749,41 @@ export default function Home() {
                 <form onSubmit={handleContactSubmit} className="space-y-6">
                   <div className="space-y-2">
                     <label htmlFor="contact-name" className="text-xs font-bold uppercase tracking-widest text-slate-300">Your Name</label>
-                    <Input 
+                    <Input
                       id="contact-name"
                       name="name"
-                      placeholder="e.g. Sarah Jenkins" 
+                      placeholder="e.g. Sarah Jenkins"
                       required
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onChange={handleFormChange("name")}
                       className="bg-slate-950 border-white/10 text-white h-14 rounded-xl focus:border-amber-500"
                     />
                   </div>
 
                   <div className="space-y-2">
                     <label htmlFor="contact-email" className="text-xs font-bold uppercase tracking-widest text-slate-300">Your Email</label>
-                    <Input 
+                    <Input
                       id="contact-email"
                       name="email"
                       type="email"
-                      placeholder="e.g. sarah@example.com" 
+                      placeholder="e.g. sarah@example.com"
                       required
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onChange={handleFormChange("email")}
                       className="bg-slate-950 border-white/10 text-white h-14 rounded-xl focus:border-amber-500"
                     />
                   </div>
 
                   <div className="space-y-2">
                     <label htmlFor="contact-message" className="text-xs font-bold uppercase tracking-widest text-slate-300">Message</label>
-                    <Textarea 
+                    <Textarea
                       id="contact-message"
                       name="message"
-                      placeholder="Write your project details or inquiry here..." 
+                      placeholder="Write your project details or inquiry here..."
                       rows={5}
                       required
                       value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      onChange={handleFormChange("message")}
                       className="bg-slate-950 border-white/10 text-white rounded-xl focus:border-amber-500 resize-none p-4"
                     />
                   </div>
